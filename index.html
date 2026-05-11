@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Link Cleaner</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+background:#f2f2f2;
+font-family:Arial;
+padding:20px;
+}
+
+.card{
+max-width:600px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+margin-top:10px;
+background:black;
+color:white;
+border:none;
+}
+
+#result{
+margin-top:20px;
+padding:15px;
+background:#eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>Link Cleaner</h1>
+
+<input
+id="urlInput"
+placeholder="Paste URL"
+>
+
+<button onclick="cleanLink()">
+Clean Link
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function cleanLink(){
+
+let input =
+document.getElementById("urlInput").value;
+
+try{
+
+let url = new URL(input);
+
+url.searchParams.delete("utm_source");
+url.searchParams.delete("utm_medium");
+url.searchParams.delete("fbclid");
+
+document.getElementById("result").innerHTML =
+url.toString();
+
+}catch{
+
+document.getElementById("result").innerHTML =
+"Invalid URL";
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
