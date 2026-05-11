@@ -66,9 +66,7 @@ Clean Link
 
 </div>
 
-<script>
-
-function cleanLink(){
+async function cleanLink(){
 
 let input =
 document.getElementById("urlInput").value;
@@ -81,8 +79,28 @@ url.searchParams.delete("utm_source");
 url.searchParams.delete("utm_medium");
 url.searchParams.delete("fbclid");
 
-document.getElementById("result").innerHTML =
+let finalURL =
 url.toString();
+
+let api =
+"https://link-api.islamicelam2.workers.dev/?url="
++ encodeURIComponent(finalURL);
+
+let response =
+await fetch(api);
+
+let data =
+await response.json();
+
+let status =
+data.safe
+? "SAFE"
+: "SUSPICIOUS";
+
+document.getElementById("result").innerHTML =
+finalURL +
+"<br><br>Status: " +
+status;
 
 }catch{
 
@@ -92,8 +110,6 @@ document.getElementById("result").innerHTML =
 }
 
 }
-
-</script>
 
 </body>
 </html>
